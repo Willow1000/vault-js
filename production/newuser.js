@@ -1,5 +1,6 @@
 const newUser = ()=>{
     const fs = require("fs")
+    const fsPromises = require("fs/promises")
     const myInput = require("prompt-sync")()
     const name = myInput("Enter your name: ".toUpperCase()).toLowerCase()
     const password = myInput("Set Your Vault password: ".toUpperCase()).toLowerCase()
@@ -22,7 +23,10 @@ const newUser = ()=>{
         const color = myInput("what is your favourite color? ".toUpperCase()).toLowerCase()
         fsPromises.mkdir("./VAULT")
         fs.writeFileSync("./VAULT/password.json",JSON.stringify([{name: name,passwd:password,city:city,nickname:nickname,color:color}]))
+        
     }
+
+    
 
     
 }
