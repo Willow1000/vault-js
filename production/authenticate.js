@@ -49,7 +49,7 @@ const authenticate = ()=>{
                     vaultData[0].passwd = newPwd
                     console.log(`password successfully reset your new vault password id ${newPwd}`)
                     const encryptedMessage = fs.readFileSync("./VAULT/password.json")
-                    let vaultDat = unlock(encryptedMessage)
+                    vaultData = fs.existsSync("./VAULT/key")?unlock(encryptedMessage):JSON.parse(encryptedMessage)
 
                     lock(vaultDat)
                     return true

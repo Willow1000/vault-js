@@ -6,17 +6,26 @@ const Act = ()=>{
     const fs = require("fs")
     const {accountType} = require("./acctype.js")
 
-    const encryptedMessage = fs.readFileSync("./VAULT/password.json")
+   
     
-    if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
-        vaultData = unlock(encryptedMessage)
-    }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
-        vaultData = JSON.parse(encryptedMessage)
-    }else{
-        vaultData = []
-    }
+    // if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
+    //     vaultData = unlock(encryptedMessage)
+    // }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
+    //     vaultData = JSON.parse(encryptedMessage)
+    // }else{
+    //     vaultData = []
+    // }
     let choice;
     while(choice!=='quit'){
+        const encryptedMessage = fs.readFileSync("./VAULT/password.json")
+        if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
+            vaultData = unlock(encryptedMessage)
+        }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
+            vaultData = JSON.parse(encryptedMessage)
+        }else{
+            vaultData = []
+        }
+        
         const choicealts=['create','quit','retrieve']
         choice = myInput("would you like to create?|| retrieve?|| quit: ".toUpperCase()).toLowerCase()
         while(choicealts.indexOf(choice)===-1){
@@ -91,7 +100,7 @@ const Act = ()=>{
             
             if(!alreadyExists){
                 
-                vaultData = unlock(encryptedMessage)
+                vaultData = fs.existsSync("./VAULT/key.json")?unlock(encryptedMessage):JSON.parse(encryptedMessage)
                 
                 
             }
