@@ -18,6 +18,7 @@ const Act = ()=>{
     let choice;
     while(choice!=='quit'){
         const encryptedMessage = fs.readFileSync("./VAULT/password.json")
+        let vaultData
         if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
             vaultData = unlock(encryptedMessage)
         }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
@@ -54,7 +55,7 @@ const Act = ()=>{
                 
                 console.log(`Your password is ${password}`)
             }
-    
+            
             if(account.account){
                 let accountset = vaultData.filter(x=>x.account)
                 let accountset1 = accountset.map((x)=>{
