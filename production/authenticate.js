@@ -3,7 +3,7 @@ const authenticate = ()=>{
     const { unlock, lock } = require("./cryptotest.js")
     const myInput = require("prompt-sync")()
     const encryptedMessage = fs.readFileSync("./VAULT/password.json")
-    
+    let vaultData;
     if(typeof(JSON.parse(fs.readFileSync("./VAULT/password.json")))==='string'){
         vaultData = unlock(encryptedMessage)
     }else{
@@ -47,11 +47,11 @@ const authenticate = ()=>{
                  }
                  if(confNewPwd === newPwd){
                     vaultData[0].passwd = newPwd
-                    console.log(`password successfully reset your new vault password id ${newPwd}`)
+                    console.log(`Password successfully reset your new vault password is ${newPwd}`)
                     const encryptedMessage = fs.readFileSync("./VAULT/password.json")
-                    let vaultDat = unlock(encryptedMessage)
+                    vaultData = fs.existsSync("./VAULT/key")?unlock(encryptedMessage):JSON.parse(encryptedMessage)
 
-                    lock(vaultDat)
+                    lock(vaultData)
                     return true
                     
                  }
