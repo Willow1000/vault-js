@@ -7,12 +7,11 @@ const accountType = ()=>{
         choice = myInput("email || account: ".toUpperCase()).toLowerCase()
     }
     if(choice==='email'){
-        const emailAddress = myInput("enter the email address: ".toUpperCase()).toLocaleLowerCase()
+        const emailAddress = myInput("enter the email address: ".toUpperCase())
         return {emailAddress: emailAddress}
     }else{
-        const account = myInput("enter name of the account: ".toUpperCase()).toLowerCase()
-        const username = myInput("enter your username: ".toUpperCase()).toLowerCase()
-        
+        const account = myInput("enter name of the account: ".toUpperCase())
+        const username = myInput("enter your username: ".toUpperCase())
 
         return {username:username,account:account}
     }

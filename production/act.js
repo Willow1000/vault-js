@@ -6,15 +6,6 @@ const Act = ()=>{
     const fs = require("fs")
     const {accountType} = require("./acctype.js")
 
-   
-    
-    // if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
-    //     vaultData = unlock(encryptedMessage)
-    // }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
-    //     vaultData = JSON.parse(encryptedMessage)
-    // }else{
-    //     vaultData = []
-    // }
     let choice;
     while(choice!=='quit'){
         const encryptedMessage = fs.readFileSync("./VAULT/password.json")
@@ -48,8 +39,8 @@ const Act = ()=>{
                 account.password=password
                 console.log(`Your password is ${password}`)
             }else{
-                const password = myInput("enter your password: ".toUpperCase()).toLowerCase()
-                let confPassword  = myInput("confirm your password: ".toUpperCase()).toLowerCase()
+                const password = myInput("enter your password: ".toUpperCase())
+                let confPassword  = myInput("confirm your password: ".toUpperCase())
                 settingpwd(password,confPassword)
                 account.password=password
                 

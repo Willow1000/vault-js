@@ -58,7 +58,7 @@ const crypt = require("bcrypt")
 const fs = require("fs")
 const fsPromises = require("fs/promises")
 const path = require("path")
-const { settingpwd } = require("./settingpwd")
+const { settingpwd } = require("./production/settingpwd")
 let vaultData = fs.existsSync("./VAULT/password.json")?JSON.parse(fs.readFileSync("./VAULT/password.json")):[]
 
 const Vault = async () =>{
@@ -317,4 +317,4 @@ const Act = ()=>{
 }
 
 
-// Vault()
+Vault()
