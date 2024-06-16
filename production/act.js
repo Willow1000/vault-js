@@ -18,7 +18,7 @@ const Act = ()=>{
     let choice;
     while(choice!=='quit'){
         const encryptedMessage = fs.readFileSync("./VAULT/password.json")
-        let vaultData
+        let vaultData;
         if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
             vaultData = unlock(encryptedMessage)
         }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
