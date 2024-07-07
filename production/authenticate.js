@@ -1,6 +1,12 @@
 const authenticate = ()=>{
     let fs = require("fs")
     const { unlock, lock } = require("./cryptotest.js")
+    const exit = ()=>{
+        console.log("The vault has been locked!".toUpperCase())
+        setTimeout(()=>{
+            console.clear()
+        },2000)
+    }
     const myInput = require("prompt-sync")()
     const encryptedMessage = fs.readFileSync("./VAULT/password.json")
     let vaultData;
@@ -12,7 +18,7 @@ const authenticate = ()=>{
    
     let count = 3
     const authenticPwd = vaultData[0].passwd
-    let password = myInput("enter your vault password: ".toUpperCase()).toLowerCase()
+    let password = myInput("enter your vault password: ".toUpperCase())
 
     while(password != authenticPwd){
         
@@ -38,10 +44,7 @@ const authenticate = ()=>{
              
                      if (count === 0) {
                          console.log("Maximum number of attempts reached please try again later");
-                         console.log("The vault has been locked".toUpperCase())
-                         setTimeout(()=>{
-
-                         },3000)
+                         exit()
                          return false
                      }
                  }
@@ -57,10 +60,7 @@ const authenticate = ()=>{
                  }
             }else{
                 console.log("invalid credentials!".toUpperCase())
-                console.log("The vault has been locked!".toUpperCase())
-                setTimeout(()=>{
-
-                },3000)
+                exit()
                 return false
             }
 

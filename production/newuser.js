@@ -3,6 +3,7 @@ const newUser = ()=>{
     const fsPromises = require("fs/promises")
     const myInput = require("prompt-sync")()
     const name = myInput("Enter your name: ".toUpperCase())
+    const {lock} = require('./cryptotest')
     const password = myInput("Set Your Vault password: ".toUpperCase())
     let confPassword = myInput("Confirm Your Password: ".toUpperCase())
     let count = 3
@@ -21,9 +22,9 @@ const newUser = ()=>{
         const city = myInput("in which city were you born? ".toUpperCase())
         const nickname = myInput("what was your childhood nickname? ".toUpperCase())
         const color = myInput("what is your favourite color? ".toUpperCase())
+        const securityInfo = [{name: name,passwd:password,city:city,nickname:nickname,color:color}]
         fsPromises.mkdir("./VAULT")
-        fs.writeFileSync("./VAULT/password.json",JSON.stringify([{name: name,passwd:password,city:city,nickname:nickname,color:color}]))
-        
+        lock(securityInfo)
     }
 
     
