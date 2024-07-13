@@ -54,7 +54,7 @@ const Act = ()=>{
                 let username = accountset.map((x)=>{
                     return x.username
                 })
-                if(accountset1.includes(account.account) && username.includes(account.username) && username.indexOf(account.username)===accountset1.indexOf(account.account)){
+                if(accountset1.includes(account.account) && username.includes(account.username) && username[accountset1.indexOf(account.account)]===account.username){ 
                     alreadyExists = true
                     const choiceAlts = ['y','n']
                     let passwd = accountset.find(x=>x.account===account.account).password
