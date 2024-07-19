@@ -38,8 +38,8 @@ const Act = ()=>{
                 account.password=password
                 console.log(`Your password is ${password}`)
             }else{
-                const password = myInput("enter your password: ".toUpperCase())
-                let confPassword  = myInput("confirm your password: ".toUpperCase())
+                const password = myInput.hide("enter your password: ".toUpperCase())
+                let confPassword  = myInput.hide("confirm your password: ".toUpperCase())
                 settingpwd(password,confPassword)
                 account.password=password
                 
@@ -141,8 +141,8 @@ const Act = ()=>{
                             acc.password=password
                             console.log(`Your password is ${password}`)
                         }else{
-                            const password = myInput("enter your password: ".toUpperCase())
-                            let confPassword  = myInput("confirm your password: ".toUpperCase())
+                            const password = myInput.hide("enter your password: ".toUpperCase())
+                            let confPassword  = myInput.hide("confirm your password: ".toUpperCase())
                             settingpwd(password,confPassword)
                             acc.password=password
                             
@@ -184,8 +184,8 @@ const Act = ()=>{
                             acc.password=password
                             console.log(`Your password is ${password}`)
                         }else{
-                            const password = myInput("enter your password: ".toUpperCase())
-                            let confPassword  = myInput("confirm your password: ".toUpperCase())
+                            const password = myInput.hide("enter your password: ".toUpperCase())
+                            let confPassword  = myInput.hide("confirm your password: ".toUpperCase())
                             settingpwd(password,confPassword)
                             acc.password=password
                             

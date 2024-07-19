@@ -1,5 +1,6 @@
 const authenticate = ()=>{
     let fs = require("fs")
+    const { securityQuiz } = require("./securityQuiz.js")
     const { unlock, lock } = require("./cryptotest.js")
     const exit = ()=>{
         console.log("The vault has been locked!".toUpperCase())
@@ -18,28 +19,26 @@ const authenticate = ()=>{
    
     let count = 3
     const authenticPwd = vaultData[0].passwd
-    let password = myInput("enter your vault password: ".toUpperCase())
+    let password = myInput.hide("enter your vault password: ".toUpperCase())
 
     while(password != authenticPwd){
         
         console.log(`the password you've enetred is incorrect ${count} more attempt(s) remaining`.toUpperCase())
-        password = myInput("enter your vault password: ".toUpperCase()).toLowerCase()
+        password = myInput.hide("enter your vault password: ".toUpperCase()).toLowerCase()
         count--
 
         if(count===0){
             console.log("maximum number of attempts reached!".toUpperCase())
             console.log("answer the following emergency questions to reset your vault password".toUpperCase())
-            const cityperp = myInput("in which city were you born? ".toUpperCase()).toLowerCase()
-            const nicknameperp = myInput("what was your childhood nickname? ".toUpperCase()).toLowerCase()
-            const colorperp = myInput("what is your favourite color? ".toUpperCase()).toLowerCase()
-            if(cityperp===vaultData[0].city && nicknameperp===vaultData[0].nickname && colorperp === vaultData[0].color){
-                 const newPwd = myInput("enter your new vault password: ".toUpperCase()).toLowerCase()
-                 let confNewPwd = myInput("confirm your new vault password: ".toUpperCase()).toLowerCase()
+            const {color,nickname,city} = securityQuiz()
+            if(city===vaultData[0].city && nickname===vaultData[0].nickname && color === vaultData[0].color){
+                 const newPwd = myInput.hide("enter your new vault password: ".toUpperCase()).toLowerCase()
+                 let confNewPwd = myInput.hide("confirm your new vault password: ".toUpperCase()).toLowerCase()
                  let count = 3;
                  while ((confNewPwd !== newPwd)) {
                      
                      console.log(`Password mismatch ${count} more trial(s) remaining`);
-                     confNewPwd = myInput("Confirm Your Password: ".toUpperCase()).toLowerCase();
+                     confNewPwd = myInput.hide("Confirm Your Password: ".toUpperCase()).toLowerCase();
                      count--;
              
                      if (count === 0) {
@@ -69,6 +68,7 @@ const authenticate = ()=>{
     }
     return true
 }
+
 
 exports.authenticate = authenticate
 
