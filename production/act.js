@@ -6,6 +6,7 @@ const Act = ()=>{
     const fs = require("fs")
     const {accountType} = require("./acctype.js")
     let choice;
+    
     while(choice!=='quit'){
         const encryptedMessage = fs.readFileSync("./VAULT/password.json")
         let vaultData;

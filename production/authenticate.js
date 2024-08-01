@@ -52,8 +52,9 @@ const authenticate = ()=>{
                     console.log(`Password successfully reset your new vault password is ${newPwd}`)
                     const encryptedMessage = fs.readFileSync("./VAULT/password.json")
                     vaultData = fs.existsSync("./VAULT/key")?unlock(encryptedMessage):JSON.parse(encryptedMessage)
-
+                    console.log(`Hello ${vaultData[0].name} welcome to your vault`)
                     lock(vaultData)
+                    
                     return true
                     
                  }
@@ -66,6 +67,7 @@ const authenticate = ()=>{
         }
 
     }
+    console.log(`Hello ${vaultData[0].name} welcome to your vault`)
     return true
 }
 

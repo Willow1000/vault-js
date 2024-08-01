@@ -23,6 +23,8 @@ const newUser = ()=>{
         const {color,nickname,city} = securityQuiz()
         const securityInfo = [{name: name,passwd:password,city:city,nickname:nickname,color:color}]
         fsPromises.mkdir("./VAULT")
+        console.log(`Hello ${name} welcome to your Vault`);
+        
         lock(securityInfo)
     }
 
