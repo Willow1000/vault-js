@@ -1,4 +1,4 @@
-let fs = require("fs")
+const fs = require("fs")
 const {newUser} = require("./newuser.js")
 
 
@@ -11,7 +11,6 @@ const Vault = async () =>{
       newUser()
       Act()
       
-
     }else if(authenticate()){
         
         Act()
