@@ -5,20 +5,10 @@ const Act = ()=>{
     const {unlock,lock} = require("./cryptotest.js")
     const fs = require("fs")
     const {accountType} = require("./acctype.js")
-
-   
-    
-    // if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
-    //     vaultData = unlock(encryptedMessage)
-    // }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
-    //     vaultData = JSON.parse(encryptedMessage)
-    // }else{
-    //     vaultData = []
-    // }
     let choice;
     while(choice!=='quit'){
         const encryptedMessage = fs.readFileSync("./VAULT/password.json")
-        let vaultData
+        let vaultData;
         if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==="string"){
             vaultData = unlock(encryptedMessage)
         }else if(fs.existsSync("./VAULT/password.json") && typeof(JSON.parse(encryptedMessage))==='object'){
@@ -48,8 +38,8 @@ const Act = ()=>{
                 account.password=password
                 console.log(`Your password is ${password}`)
             }else{
-                const password = myInput("enter your password: ".toUpperCase()).toLowerCase()
-                let confPassword  = myInput("confirm your password: ".toUpperCase()).toLowerCase()
+                const password = myInput.hide("enter your password: ".toUpperCase())
+                let confPassword  = myInput.hide("confirm your password: ".toUpperCase())
                 settingpwd(password,confPassword)
                 account.password=password
                 
@@ -64,11 +54,16 @@ const Act = ()=>{
                 let username = accountset.map((x)=>{
                     return x.username
                 })
-                if(accountset1.includes(account.account) && username.includes(account.username) && username.indexOf(account.username)===accountset1.indexOf(account.account)){
+                if(accountset1.includes(account.account) && username.includes(account.username) && username[accountset1.indexOf(account.account)]===account.username){ 
                     alreadyExists = true
+                    const choiceAlts = ['y','n']
                     let passwd = accountset.find(x=>x.account===account.account).password
                     console.log(`The account already has a password: ${passwd}`);
                     let choice = myInput("would you like to update y || n? ".toUpperCase()).toLowerCase()
+                    while(choiceAlts.indexOf(choice)===-1){
+                        console.log("invalid choice, kindly select the provided alternatives")
+                        choice = myInput("would you like to update y || n? ".toUpperCase()).toLowerCase()
+                    }
                     if(choice==='y'){
                         console.log(`your new password is ${account.password}`)
                         
@@ -85,9 +80,14 @@ const Act = ()=>{
                 })
                 if(mailset1.includes(account.emailAddress)){
                     alreadyExists = true
+                    const choiceAlts = ['y','n']
                     let passwd = mailset.find(x=>x.emailAddress === account.emailAddress).password
                     console.log(`The account already has a password: ${passwd}`);
                     let choice = myInput("would you like to update y || n? ".toUpperCase()).toLowerCase()
+                    while(choiceAlts.indexOf(choice)===-1){
+                        console.log("invalid choice, kindly select the provided alternatives")
+                        choice = myInput("would you like to update y || n? ".toUpperCase()).toLowerCase()
+                    }
                     if(choice==='y'){
                         console.log(`your new password is ${account.password}`)
                     }else{
@@ -123,19 +123,79 @@ const Act = ()=>{
                     
                 }else if(index===-1 && accountStatus === false){
                     console.log("the account you entered does not exist".toUpperCase())
+                    const choiceAlts = ['y','n']
+                    const choice = myInput("Would you like to create one? y || n: ".toUpperCase()).toLowerCase()
+                    while(choiceAlts.indexOf(choice)===-1){
+                        console.log("invalid choice, kindly select the provided alternatives");
+                        choice = myInput("Would you like to create one? y || n: ".toUpperCase()).toLowerCase()
+                    }
+                    if (choice==='y'){
+                        const choice1alts = ['generate','have']
+                        let choice1 = myInput("would you like me to 'generate' one || you 'have' one in mind: ".toUpperCase()).toLowerCase()
+                        while(choice1alts.indexOf(choice1)===-1){
+                            console.log("invalid choice, kindly select the provided alternatives")
+                            choice1 = myInput("would you like me to 'generate' one || you 'have' one in mind: ".toUpperCase()).toLowerCase()
+                        }
+                        if(choice1 == 'generate'){
+                            const password = passwdgenerator(16)
+                            acc.password=password
+                            console.log(`Your password is ${password}`)
+                        }else{
+                            const password = myInput.hide("enter your password: ".toUpperCase())
+                            let confPassword  = myInput.hide("confirm your password: ".toUpperCase())
+                            settingpwd(password,confPassword)
+                            acc.password=password
+                            
+                            console.log(`Your password is ${password}`)
+                        }
+                        vaultData.push(acc)
+                        lock(vaultData)
+                    }else{
+                        continue
+                    }
                     
                 }else{
                     let pwd = vaultData.find(x=>x.account=== acc.account && x.username=== acc.username).password
-                    console.log(`Your ${acc.account} password for ${acc.username} is ${pwd}`)
+                    console.log(`Your "${acc.account}" password for "${acc.username}" is ${pwd}`)
                     
                 }
             }else if(acc.emailAddress){
                 if(vaultData.find(x=>x.emailAddress===acc.emailAddress)){
                     let passwd = vaultData.find(x=>x.emailAddress===acc.emailAddress).password
-                    console.log(`The password for ${acc.emailAddress} is ${passwd}`)
+                    console.log(`The password for "${acc.emailAddress}" is ${passwd}`)
                     
                 }else{
-                    console.log("the emai address you've entered does not exist".toUpperCase())
+                    console.log("the email address you've entered does not exist".toUpperCase())
+                    const choiceAlts = ['y','n']
+                    const choice = myInput("Would you like to create one? y || n: ".toUpperCase()).toLowerCase()
+                    while(choiceAlts.indexOf(choice)===-1){
+                        console.log("invalid choice, kindly select the provided alternatives");
+                        choice = myInput("Would you like to create one? y || n: ".toUpperCase()).toLowerCase()
+                    }
+                    if (choice==='y'){
+                        const choice1alts = ['generate','have']
+                        let choice1 = myInput("would you like me to 'generate' one || you 'have' one in mind: ".toUpperCase()).toLowerCase()
+                        while(choice1alts.indexOf(choice1)===-1){
+                            console.log("invalid choice, kindly select the provided alternatives")
+                            choice1 = myInput("would you like me to 'generate' one || you 'have' one in mind: ".toUpperCase()).toLowerCase()
+                        }
+                        if(choice1 == 'generate'){
+                            const password = passwdgenerator(16)
+                            acc.password=password
+                            console.log(`Your password is ${password}`)
+                        }else{
+                            const password = myInput.hide("enter your password: ".toUpperCase())
+                            let confPassword  = myInput.hide("confirm your password: ".toUpperCase())
+                            settingpwd(password,confPassword)
+                            acc.password=password
+                            
+                            console.log(`Your password is ${password}`)
+                        }
+                        vaultData.push(acc)
+                        lock(vaultData)
+                    }else{
+                        continue
+                    }
                     
                 }
     
@@ -146,8 +206,9 @@ const Act = ()=>{
     if(choice==='quit'){
         console.log("your vault has been locked".toUpperCase())
         setTimeout(()=>{
-            
-        },3000)
+            console.clear()
+        },1500)
+        
         return
     }
 }

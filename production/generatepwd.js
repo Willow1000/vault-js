@@ -1,7 +1,7 @@
 const passwdgenerator = (length)=>{
     const upperletters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     const lowerletters = upperletters.toLowerCase()
-    const symbols = '#@$%^&*!~?:()'
+    const symbols = '#@$%^&*!~?:()-+><,'
     const numbers = '0123456789'
 
     const sample = lowerletters+upperletters+numbers+symbols
