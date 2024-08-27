@@ -145,7 +145,14 @@ const Act = ()=>{
                             choice1 = myInput("would you like me to 'generate' one || you 'have' one in mind: ".toUpperCase()).toLowerCase()
                         }
                         if(choice1 == 'generate'){
-                            const password = passwdgenerator(16)
+                            let password = passwdgenerator(16)
+                            console.log(`Your password is ${password}`)
+                            let satisfied=myInput('are you satisfied with this password? y || n: '.toUpperCase()).toLowerCase()
+                            while (satisfied==='n'){
+                                password=passwdgenerator(16)
+                                console.log(`Your password is ${password}`)
+                                satisfied=myInput('are you satisfied with this password? y || n: '.toUpperCase()).toLowerCase()
+                            }
                             acc.password=password
                             console.log(`Your password is ${password}`)
                         }else{
@@ -222,7 +229,7 @@ const Act = ()=>{
         console.log("your vault has been locked".toUpperCase())
         setTimeout(()=>{
             console.clear()
-        },1500)
+        },1000)
         
         return
     }
